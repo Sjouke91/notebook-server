@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   notebook.init(
     {
+      name: { type: DataTypes.STRING, allowNull: false },
       userId: { type: DataTypes.INTEGER, allowNull: false },
       subjectId: { type: DataTypes.INTEGER, allowNull: false },
     },

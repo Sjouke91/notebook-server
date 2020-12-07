@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       notebookId: { type: DataTypes.INTEGER, allowNull: false },
       title: { type: DataTypes.STRING, allowNull: false },
-      content: { type: DataTypes.TEXT, allowNull: false },
-      imageUrl: DataTypes.STRING,
-      type: {
+      content: { type: DataTypes.TEXT },
+      imageUrl: { type: DataTypes.STRING },
+      typeOfNote: {
         type: DataTypes.ENUM("textnote", "definition", "snippet", "stepbystep"),
         allowNull: false,
       },

@@ -17,15 +17,14 @@ module.exports = {
         type: Sequelize.STRING,
       },
       content: {
-        allowNull: false,
         type: Sequelize.TEXT,
       },
       imageUrl: {
         type: Sequelize.STRING,
       },
-      type: {
+      typeOfNote: {
         allowNull: false,
-        type: DataTypes.ENUM("textnote", "definition", "snippet", "stepbystep"),
+        type: Sequelize.ENUM("textnote", "definition", "snippet", "stepbystep"),
       },
       createdAt: {
         allowNull: false,
