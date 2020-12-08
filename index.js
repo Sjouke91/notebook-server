@@ -21,6 +21,9 @@ app.use("/notebooks", notebooksRouter);
 const subjectsRouter = require("./routers/subjects");
 app.use("/subjects", subjectsRouter);
 
+const usersRouter = require("./routers/users");
+app.use("/users", usersRouter);
+
 // Listen for connections on specified port (default is port 4000)
 const { PORT } = require("./config/constants");
 
