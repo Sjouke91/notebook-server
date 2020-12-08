@@ -15,6 +15,9 @@ const authMiddleWare = require("./auth/middleware");
 const authRouter = require("./routers/auth");
 app.use("/", authRouter);
 
+const notebooksRouter = require("./routers/notebooks");
+app.use("/notebooks", notebooksRouter);
+
 // Listen for connections on specified port (default is port 4000)
 const { PORT } = require("./config/constants");
 

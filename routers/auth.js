@@ -23,8 +23,7 @@ router.post("/login", async (req, res, next) => {
       where: { username },
       include: {
         model: Notebook,
-        include: [Note],
-        order: [[Note, "createdAt", "DESC"]],
+        attributes: ["name", "createdAt", "updatedAt"],
       },
     });
 
@@ -35,7 +34,9 @@ router.post("/login", async (req, res, next) => {
     }
 
     delete user.dataValues["password"]; // don't send back the password hash
+
     const token = toJWT({ userId: user.id });
+
     return res.status(200).send({ token, ...user.dataValues });
   } catch (error) {
     console.log(error);
@@ -85,7 +86,7 @@ router.post("/signup", async (req, res) => {
 // The /me endpoint can be used to:
 // - get the users email & name using only their token
 // - checking if a token is (still) valid
-router.get("/me", authMiddleware, async (req, res) => {
+router.get("/me", authMiddleware, async (req, res, next) => {
   // don't send back the password hash
   delete req.user.dataValues["password"];
   res.status(200).send({ ...req.user.dataValues, space });
