@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       subject.hasMany(models.notebook);
     }
   }
-  subjec.init(
+  subject.init(
     {
       name: { type: DataTypes.STRING, allowNull: false, unique: true },
     },
