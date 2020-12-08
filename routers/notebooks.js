@@ -8,10 +8,15 @@ const Subject = require("../models/").subject;
 const router = new Router();
 
 //get all notebooks of all users
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   const { id: userId } = req.user;
+  if (!userId) {
+    res.status(404).send({ message: "you're not authorized" });
+  }
   try {
-    const userNotebooks = await Notebook.findAll();
+    const userNotebooks = await Notebook.findAll({
+      include: { model: User, attributes: ["username", "imageUrl"] },
+    });
     res.status(200).send(userNotebooks);
   } catch (e) {
     next(e);

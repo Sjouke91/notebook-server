@@ -23,7 +23,7 @@ router.post("/", authMiddleware, async (req, res, next) => {
   }
 });
 
-//Create a new subject
+//Get a new subject
 router.get("/", async (req, res, next) => {
   try {
     const allSubjects = await Subject.findAll();
