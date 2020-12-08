@@ -7,42 +7,6 @@ const Subject = require("../models/").subject;
 
 const router = new Router();
 
-//Create a new subject
-router.post("/subjects", authMiddleware, async (req, res, next) => {
-  const { name } = req.body;
-  if (!name) {
-    res.status(404).send({ message: "Please fill in all input fields" });
-  }
-  try {
-    const newSubject = await Subject.create({
-      name,
-    });
-    res.status(200).json(newSubject);
-  } catch (e) {
-    next(e);
-  }
-});
-
-//Delete a subject
-router.delete(
-  "/subjects/:subjectId",
-  authMiddleware,
-  async (req, res, next) => {
-    const { subjectId } = req.params;
-    if (!name) {
-      res.status(404).send({ message: "Please fill in all input fields" });
-    }
-    try {
-      const newSubject = await Subject.destroy({
-        where: { subjectId },
-      });
-      res.status(200).json(newSubject);
-    } catch (e) {
-      next(e);
-    }
-  }
-);
-
 //get all notebooks of all users
 router.get("/", async (req, res) => {
   const { id: userId } = req.user;

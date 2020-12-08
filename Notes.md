@@ -14,5 +14,6 @@ http -v :4000/notebooks/1 Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX
 | POST   | '/notebooks/:notebookId/notes'         | Create a new note to a notebook             | notebookId, title, content, imageUrl, type     | yes  |
 | DELETE | '/notebooks/:notebookId/notes'         | Delete a note                               | notebookId, noteId                             | yes  |
 | PATCH  | '/notebooks/:notebookId/notes/:noteId' | Edit a note                                 | the things to update                           | yes  |
-| POST   | '/notebooks/subjects'                  | Create a new subject                        | name                                           | yes  |
-| DELETE | '/notebooks/subjects/subjectId'        | delete a subject                            | subjectId                                      | yes  |
+| GET    | '/subjects'                            | Get all subject                             | none                                           | no   |
+| POST   | '/subjects'                            | Create a new subject                        | name                                           | yes  |
+| DELETE | '/subjects/subjectId'                  | delete a subject                            | subjectId                                      | yes  |
