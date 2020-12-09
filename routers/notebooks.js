@@ -29,16 +29,19 @@ router.get("/:notebookId", authMiddleware, async (req, res) => {
   try {
     const userNotebooks = await Notebook.findOne({
       where: { id: notebookId },
-      include: {
-        model: Note,
-        attributes: [
-          "title",
-          "content",
-          "typeOfNote",
-          "createdAt",
-          "updatedAt",
-        ],
-      },
+      include: [
+        {
+          model: Note,
+          attributes: [
+            "title",
+            "content",
+            "typeOfNote",
+            "createdAt",
+            "updatedAt",
+          ],
+        },
+        { model: User },
+      ],
     });
     res.status(200).send(userNotebooks);
   } catch (e) {
