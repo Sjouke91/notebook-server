@@ -24,7 +24,7 @@ router.get("/", authMiddleware, async (req, res) => {
 });
 
 //get one specific notebook of user
-router.get("/:notebookId", authMiddleware, async (req, res) => {
+router.get("/:notebookId", async (req, res) => {
   const { notebookId } = req.params;
   try {
     const userNotebooks = await Notebook.findOne({
