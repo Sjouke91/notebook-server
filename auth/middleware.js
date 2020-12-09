@@ -16,7 +16,7 @@ async function auth(req, res, next) {
   try {
     const data = toData(auth[1]);
     const user = await User.findByPk(data.userId, {
-      include: { model: Notebook, attributes: ["id"] },
+      include: { model: Notebook },
     });
     if (!user) {
       return res.status(404).send({ message: "User does not exist" });
