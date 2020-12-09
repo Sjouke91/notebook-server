@@ -30,14 +30,7 @@ router.get("/:notebookId", authMiddleware, async (req, res) => {
     const userNotebooks = await Notebook.findOne({
       where: { id: notebookId },
       include: {
-        model: Note,
-        attributes: [
-          "title",
-          "content",
-          "typeOfNote",
-          "createdAt",
-          "updatedAt",
-        ],
+        model: [Note],
       },
     });
     res.status(200).send(userNotebooks);
@@ -100,7 +93,7 @@ router.post("/:notebookId/notes", authMiddleware, async (req, res) => {
   const notebookArray = req.user.dataValues.notebooks;
   const notebookId = parseInt(req.params.notebookId);
   const { title, content, imageUrl, typeOfNote } = req.body;
-  if ((!title, !content, !imageUrl, !typeOfNote)) {
+  if ((!title, !content, !typeOfNote)) {
     res.status(404).send({ message: "Please fill in all input fields" });
   }
   try {
