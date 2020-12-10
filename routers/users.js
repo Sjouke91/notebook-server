@@ -22,7 +22,7 @@ router.get("/", authMiddleware, async (req, res, next) => {
 //Update user profile info
 router.patch("/update-user", authMiddleware, async (req, res, next) => {
   const { id } = req.user;
-  const { firstName, lastName, username, imageUrl, email } = req.body;
+  const { firstName, lastName, username, email } = req.body;
 
   if (!id) {
     return res.status(401).json({ message: "User not found." });
@@ -39,8 +39,35 @@ router.patch("/update-user", authMiddleware, async (req, res, next) => {
       firstName,
       lastName,
       username,
-      imageUrl,
       email,
+    });
+
+    delete updatedUser.dataValues["password"]; // don't send back the password hash
+
+    res.json(updatedUser);
+  } catch (e) {
+    return res.status(400).send({ message: "Something went wrong, sorry" });
+  }
+});
+
+//Update user profile picture
+router.patch("/update-picture", authMiddleware, async (req, res, next) => {
+  const { id } = req.user;
+  const { imageUrl } = req.body;
+
+  if (!id) {
+    return res.status(401).json({ message: "User not found." });
+  }
+
+  try {
+    const userToUpdate = await User.findByPk(id);
+
+    if (!userToUpdate) {
+      return res.status(404).json({ message: "No user found." });
+    }
+
+    const updatedUser = await userToUpdate.update({
+      imageUrl,
     });
 
     delete updatedUser.dataValues["password"]; // don't send back the password hash
