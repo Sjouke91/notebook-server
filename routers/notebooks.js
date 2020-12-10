@@ -23,6 +23,24 @@ router.get("/", authMiddleware, async (req, res) => {
   }
 });
 
+//get all notebooks of a specific student
+router.get("/student/:studentId", authMiddleware, async (req, res, next) => {
+  const { studentId } = req.params;
+
+  if (!studentId) {
+    res.status(404).send({ message: "you're not authorized" });
+  }
+  try {
+    const studentNotebooks = await Notebook.findAll({
+      where: { userId: studentId },
+      include: { model: User, attributes: ["username", "imageUrl"] },
+    });
+    res.status(200).send(studentNotebooks);
+  } catch (e) {
+    next(e);
+  }
+});
+
 //get one specific notebook of user
 router.get("/:notebookId", async (req, res) => {
   const { notebookId } = req.params;
