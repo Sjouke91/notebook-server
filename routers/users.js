@@ -28,6 +28,10 @@ router.patch("/update-user", authMiddleware, async (req, res, next) => {
     return res.status(401).json({ message: "User not found." });
   }
 
+  if (!req.body) {
+    return res.status(400);
+  }
+
   try {
     const userToUpdate = await User.findByPk(id);
 
@@ -35,12 +39,7 @@ router.patch("/update-user", authMiddleware, async (req, res, next) => {
       return res.status(404).json({ message: "No user found." });
     }
 
-    const updatedUser = await userToUpdate.update({
-      firstName,
-      lastName,
-      username,
-      email,
-    });
+    const updatedUser = await userToUpdate.update(req.body);
 
     delete updatedUser.dataValues["password"]; // don't send back the password hash
 
