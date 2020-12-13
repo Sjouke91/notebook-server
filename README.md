@@ -1,6 +1,6 @@
-# Hi there, thank you for visiting my FITTRACK project!
+# Hi there, thank you for visiting my Notebook project!
 
-## What this app is about
+## What is this app is about
 
 Notebooks is an app made to support the future students of the codaisseur accademy. With this app we've created a central place to save, read and share notes regarding the topics thaught in class. Our goal was to make an app that we wished we had during the course, an app that would have made our study process a little easier. Allthough there is a lot that could be improved I think we have succeeded in the initial goal and finished a very complete application.
 
