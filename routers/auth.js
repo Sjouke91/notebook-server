@@ -23,7 +23,7 @@ router.post("/login", async (req, res, next) => {
       where: { username },
       include: {
         model: Notebook,
-        attributes: ["id", "name", "createdAt", "updatedAt"],
+        attributes: ["id", "name", "createdAt", "updatedAt", "private"],
       },
     });
 

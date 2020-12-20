@@ -78,6 +78,28 @@ router.get("/:notebookId", async (req, res, next) => {
   }
 });
 
+// update state of notebook
+router.patch("/:notebookId", async (req, res, next) => {
+  const { notebookId } = req.params;
+  const { isPrivate } = req.body;
+
+  try {
+    const notebookToUpdate = await Notebook.findByPk(notebookId);
+
+    if (!notebookToUpdate) {
+      res.send({ message: "This notebook does not exist" });
+    }
+
+    const updatedNotebook = await notebookToUpdate.update({
+      private: !isPrivate,
+    });
+
+    res.status(200).json(updatedNotebook);
+  } catch (e) {
+    next(e.message);
+  }
+});
+
 //Create a new notebook
 router.post("/", authMiddleware, async (req, res, next) => {
   const { id: userId } = req.user;
