@@ -14,11 +14,15 @@ router.get("/", authMiddleware, async (req, res, next) => {
     res.status(404).send({ message: "you're not authorized" });
   }
   try {
-    const userNotebooks = await Notebook.findAll({
+    const allNotebooks = await Notebook.findAll({
       where: { private: false },
       include: { model: User, attributes: ["username", "imageUrl"] },
     });
-    res.status(200).send(userNotebooks);
+
+    const otherNotebooks = allNotebooks.filter(
+      (notebook) => notebook.userId !== userId
+    );
+    res.status(200).send(otherNotebooks);
   } catch (e) {
     next(e);
   }

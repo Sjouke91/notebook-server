@@ -28,7 +28,6 @@ async function auth(req, res, next) {
     req.user = user;
     // next handler
 
-    console.log("THIS IS DATA", user);
     return next();
   } catch (error) {
     console.log("ERROR IN AUTH MIDDLEWARE", error);
