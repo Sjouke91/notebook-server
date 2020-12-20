@@ -9,11 +9,17 @@ const { SALT_ROUNDS } = require("../config/constants");
 
 const router = new Router();
 
-//Get a new subject
+//Get all users
 router.get("/", authMiddleware, async (req, res, next) => {
+  const { id: userId } = req.user;
   try {
     const allUsers = await User.findAll();
-    res.status(200).json(allUsers);
+    if (allUsers.length === 0) {
+      res.send({ message: "no users found" });
+    }
+
+    const otherUsers = allUsers.filter((user) => user.id !== userId);
+    res.status(200).json(otherUsers);
   } catch (e) {
     next(e);
   }

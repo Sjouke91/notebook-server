@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       name: { type: DataTypes.STRING, allowNull: false },
       userId: { type: DataTypes.INTEGER, allowNull: false },
       subjectId: { type: DataTypes.INTEGER, allowNull: false },
+      private: { type: DataTypes.BOOLEAN, allowNull: false },
     },
     {
       sequelize,
