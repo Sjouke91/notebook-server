@@ -15,6 +15,7 @@ router.get("/", authMiddleware, async (req, res, next) => {
   }
   try {
     const userNotebooks = await Notebook.findAll({
+      where: { private: false },
       include: { model: User, attributes: ["username", "imageUrl"] },
     });
     res.status(200).send(userNotebooks);
@@ -26,13 +27,15 @@ router.get("/", authMiddleware, async (req, res, next) => {
 //get all notebooks of a specific student
 router.get("/student/:studentId", authMiddleware, async (req, res, next) => {
   const { studentId } = req.params;
+  const { id: userId } = req.user;
 
-  if (!studentId) {
+  if (!userId) {
     res.status(404).send({ message: "you're not authorized" });
   }
   try {
     const studentNotebooks = await Notebook.findAll({
       where: { userId: studentId },
+      where: { private: false },
       include: { model: User, attributes: ["username", "imageUrl"] },
     });
     res.status(200).send(studentNotebooks);
@@ -61,7 +64,11 @@ router.get("/:notebookId", async (req, res, next) => {
         { model: User },
       ],
     });
-    res.status(200).send(userNotebooks);
+
+    if (userNotebooks.private === true) {
+      res.send({ message: "This notebook is private" });
+    }
+    res.status(200).json(userNotebooks);
   } catch (e) {
     next(e);
   }
@@ -70,13 +77,14 @@ router.get("/:notebookId", async (req, res, next) => {
 //Create a new notebook
 router.post("/", authMiddleware, async (req, res, next) => {
   const { id: userId } = req.user;
-  const { name, subjectId } = req.body;
+  const { name, subjectId, private } = req.body;
   if ((!name, !subjectId)) {
     res.status(404).send({ message: "Please fill in all input fields" });
   }
   try {
     const newNotebook = await Notebook.create({
       name,
+      private,
       userId,
       subjectId,
     });
