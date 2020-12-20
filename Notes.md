@@ -1,4 +1,4 @@
-http -v :4000/notebooks/1 Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYwNzQzNzM5NywiZXhwIjoxNjA3NDQ0NTk3fQ.D1YQvNu6Ib0mnO042YwU6Exi-MS5u32bOMIGbDIp8Ok"
+http -v :4000/notebooks/1 Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYwODQ2NDk3OSwiZXhwIjoxNjA4NDcyMTc5fQ.ePnGIhWNWcWzXrALXgA9nPeNQaS0II2F0DEsDGLybs8"
 
 **Available endpoints**
 

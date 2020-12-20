@@ -15,9 +15,11 @@ async function auth(req, res, next) {
 
   try {
     const data = toData(auth[1]);
+
     const user = await User.findByPk(data.userId, {
       include: { model: Notebook },
     });
+
     if (!user) {
       return res.status(404).send({ message: "User does not exist" });
     }
@@ -25,6 +27,8 @@ async function auth(req, res, next) {
     // add user object to request
     req.user = user;
     // next handler
+
+    console.log("THIS IS DATA", user);
     return next();
   } catch (error) {
     console.log("ERROR IN AUTH MIDDLEWARE", error);
